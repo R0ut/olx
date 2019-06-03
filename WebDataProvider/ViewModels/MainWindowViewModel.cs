@@ -1,6 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Windows.Input;
 using WebDataProvider.BusinessLogic;
 using WebDataProvider.Helpers;
@@ -57,7 +59,7 @@ namespace WebDataProvider.ViewModels
 
         #endregion
 
-            #region Properties
+        #region Properties
 
         public ChromeDriver Driver { get; set; }
 
@@ -77,9 +79,10 @@ namespace WebDataProvider.ViewModels
 
         #region Privete Methods
 
-        private void SaveExecute(object param)
+        private async void SaveExecute(object param)
         {
             var scraper = new DataScraper(Driver);
+            var listOfAds = new List<APIClient.TableUser>();
 
             for (int i = 1; i <= 500; i++)
             {
@@ -87,6 +90,15 @@ namespace WebDataProvider.ViewModels
                 foreach (var linkToSingleOrder in listOfLinks)
                 {
                     var singleOrderData = scraper.GetSingleOrderData(linkToSingleOrder);
+                    if (!string.IsNullOrEmpty(singleOrderData.PhoneNumber))
+                    {
+                        listOfAds.Add(singleOrderData);
+                        using (HttpClient http = new HttpClient())
+                        {
+                            var client = new APIClient.Client("http://localhost:5000", http);
+                            await client.SaveAdsAsync(listOfAds);
+                        }
+                    }
                 }
             }
         }

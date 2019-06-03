@@ -1,0 +1,14 @@
+D:\Programowanie\OLX\WebDataProvider\API\bin\Debug\netcoreapp2.2\API.deps.json
+D:\Programowanie\OLX\WebDataProvider\API\bin\Debug\netcoreapp2.2\API.runtimeconfig.json
+D:\Programowanie\OLX\WebDataProvider\API\bin\Debug\netcoreapp2.2\API.runtimeconfig.dev.json
+D:\Programowanie\OLX\WebDataProvider\API\bin\Debug\netcoreapp2.2\API.dll
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.csproj.CoreCompileInputs.cache
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.RazorAssemblyInfo.cache
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.RazorAssemblyInfo.cs
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.AssemblyInfoInputs.cache
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.AssemblyInfo.cs
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.RazorTargetAssemblyInfo.cache
+D:\Programowanie\OLX\WebDataProvider\API\bin\Debug\netcoreapp2.2\API.pdb
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.dll
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.pdb
+D:\Programowanie\OLX\WebDataProvider\API\obj\Debug\netcoreapp2.2\API.csprojAssemblyReference.cache

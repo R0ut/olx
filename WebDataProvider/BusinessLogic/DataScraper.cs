@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using APIClient;
 using WebDataProvider.Models;
 
 namespace WebDataProvider.BusinessLogic
@@ -41,8 +42,9 @@ namespace WebDataProvider.BusinessLogic
             return links;
         }
 
-        public DataModel GetSingleOrderData(string linkToOrder)
+        public APIClient.TableUser GetSingleOrderData(string linkToOrder)
         {
+            var tableUser = new TableUser();
             var model = new DataModel();
             _driver.Navigate().GoToUrl(linkToOrder);
             if (IsOlxOrder(linkToOrder))
@@ -51,33 +53,39 @@ namespace WebDataProvider.BusinessLogic
             }
             else
             {
-                model.PhoneNumber = GetPhoneNumberOtomoto();
-                model.Location = GetLocationOtomoto();
+                tableUser.TableAd = new TableAd();;
+                tableUser.PhoneNumber = GetPhoneNumberOtomoto();
+                tableUser.TableAd.Location = GetLocationOtomoto();
                 GetCarParameters();
-                model.Model = GetModelOtomoto();
-                model.Brand = GetBrandOtomoto();
-                model.Fuel = GetFuelTypeOtomoto();
-                model.HorsePower = GetHorsePowerOtomoto();
-                model.Price = GetPriceOtomoto();
-                model.Year = GetYearOtomoto();
+                tableUser.TableAd.Model = GetModelOtomoto();
+                tableUser.TableAd.Brand = GetBrandOtomoto();
+                tableUser.TableAd.Fuel = GetFuelTypeOtomoto();
+                //tableUser.TableAd.HorsePower = GetHorsePowerOtomoto();
+               // tableUser.Price = GetPriceOtomoto();
+                //tableUser.TableAd.ProductionYear = GetYearOtomoto();
             }
 
-            return model;
+            return tableUser;
         }
 
         #region otomoto
         private string GetPhoneNumberOtomoto()
         {
-            IWebElement button = _driver.FindElement(By.ClassName("seller-phones__button")); // locate the button, can be done with any other selector
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(button).Click().Build().Perform();
-            // Tell webdriver to wait
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(4));
+            if (_driver.FindElement(By.ClassName("seller-phones__button")).Displayed)
+            {
+                IWebElement button = _driver.FindElement(By.ClassName("seller-phones__button")); // locate the button, can be done with any other selector
+                Actions actions = new Actions(_driver);
+                actions.MoveToElement(button).Click().Build().Perform();
+                // Tell webdriver to wait
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(4));
 
-            // Test the autocomplete response - Explicit Wait
-            var autocomplete = wait.Until(x => x.FindElements(By.ClassName("seller-phones__number")).FirstOrDefault(y => y.Text.Length > 3));
+                // Test the autocomplete response - Explicit Wait
+                var autocomplete = wait.Until(x => x.FindElements(By.ClassName("seller-phones__number")).FirstOrDefault(y => y.Text.Length > 3));
 
-            return autocomplete.Text;
+                return autocomplete.Text;
+            }
+
+            return "Brak danych";
         }
 
         private string GetLocationOtomoto()
